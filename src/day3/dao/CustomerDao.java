@@ -74,31 +74,52 @@ public class CustomerDao {
 	}
 	
 	public void update(Customer cus) {
-		String sql = "update customer set email=?,add=? where idx=? ";
+		String sql ="update customer set email=?,addr=? where idx=?";
+
 		Connection conn = MysqlConnectionUtil.connect();
 		PreparedStatement pstmt = null;
-	try {
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1,cus.getEmail());
-		pstmt.setString(2,cus.getAddr());
-		pstmt.setInt(3,cus.getIdx());
-		pstmt.execute();
-		conn.commit();
-		
-	}catch(SQLException e) {
-		e.printStackTrace();
-		System.out.println("update 오류 : " +e.getMessage());
-	}finally{
 		try {
-			pstmt.close();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, cus.getEmail());
+			pstmt.setString(2, cus.getAddr());
+			pstmt.setInt(3, cus.getIdx());
+			pstmt.execute();
+			conn.commit();
+
 		}catch(SQLException e) {
-			
-		}
-		MysqlConnectionUtil.close(conn);
+			e.printStackTrace();
+			System.out.println("update 오류 : " + e.getMessage());
+		}finally {
+			try {
+				pstmt.close();
+			} catch (SQLException e1) {
+			}
+			MysqlConnectionUtil.close(conn);
 		}
 	}
-	
 
+	public void delete(Customer cus) {
+		String sql = "delete from customer where idx = ?";
+		
+		Connection conn = MysqlConnectionUtil.connect();
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cus.getIdx());
+			pstmt.execute();
+			conn.commit();
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println("Delete 오류 : " + e.getMessage());
+		}finally {
+			try {
+				pstmt.close();
+			} catch (SQLException e1) {
+			}
+			MysqlConnectionUtil.close(conn);
+		}
+	}
 	
 	
 	public void insert(Customer cus) {
