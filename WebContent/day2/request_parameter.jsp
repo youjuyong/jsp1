@@ -14,8 +14,11 @@
 <!-- 요청 URL : http://localhost:8082/jsp1/day2/request_parameter.jsp?
 								ㄴ **Request Mehod : GET -->
 <h3>Request Parameter 연습</h3>
+<!-- 사용자 보낸 데이터를 받아서 처리하는 jsp파일입니다. -->
 <hr>
 <%
+	//form data(method post)로 전달된 데이터의 인코딩 필요합니다.
+	//request.setCharacterEncoding("URF-8");
 	//request 의 파라미터 가져오기 입니다. getParameter() 메소드 몇번 ? 10번
 			//예고편 : DTO(VO) 타입 클래스를 이용해서 파라미터와 객체를 자동으로 매핑(프레임워크)
 	String name = request.getParameter("name");
